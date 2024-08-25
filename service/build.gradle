@@ -1,0 +1,66 @@
+apply plugin: 'java-test-fixtures'
+
+sourceSets {
+    integrationTest {
+        java.srcDir 'src/integrationTest/java'
+        resources.srcDir 'src/integrationTest/resources'
+        compileClasspath += main.output
+        runtimeClasspath += main.output
+    }
+}
+
+idea {
+    module {
+        testSourceDirs += project.sourceSets.integrationTest.java.srcDirs
+        testSourceDirs += project.sourceSets.integrationTest.resources.srcDirs
+    }
+}
+
+configurations {
+    integrationTestImplementation.extendsFrom testImplementation
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+    useJUnitPlatform()
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+}
+
+processIntegrationTestResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+dependencies {
+    annotationProcessor 'org.mapstruct:mapstruct-processor'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui'
+//    implementation 'org.postgresql:postgresql'
+    implementation 'org.mapstruct:mapstruct'
+//    implementation 'com.playhub.common:playhub-rest-security-starter'
+    implementation 'com.playhub.common:playhub-web-error-management-starter'
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation project(':rest-dto')
+
+//    testImplementation 'com.jimbeam:common-utils'
+
+    integrationTestImplementation 'org.springframework.security:spring-security-test'
+    integrationTestAnnotationProcessor 'org.projectlombok:lombok'
+    integrationTestCompileOnly 'org.projectlombok:lombok'
+//    integrationTestImplementation 'com.jimbeam:common-utils'
+//    integrationTestImplementation 'com.jimbeam:spring-jpa-utils'
+//    integrationTestImplementation 'com.jimbeam:postgres-testcontainer'
+//    integrationTestImplementation 'com.jimbeam:kafka-testcontainer'
+//    integrationTestImplementation 'com.jimbeam:spring-liquibase'
+
+//    testFixturesImplementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    testFixturesImplementation 'com.fasterxml.jackson.core:jackson-core'
+    testFixturesImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    testFixturesImplementation 'com.fasterxml.jackson.core:jackson-annotations'
+    testFixturesImplementation project(':rest-dto')
+//    testFixturesImplementation 'com.jimbeam:common-utils'
+}

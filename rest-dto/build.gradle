@@ -1,0 +1,46 @@
+apply plugin: 'maven-publish'
+apply plugin: 'java-library'
+
+group = 'com.playhub.gameinitializer'
+version = '0.0.1-SNAPSHOT'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+}
+
+publishing {
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/dalayLama/game-initializer")
+			credentials {
+				username = project.findProperty("gpr.user")
+				password = project.findProperty("gpr.key")
+			}
+		}
+	}
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
+		}
+		gpr(MavenPublication) {
+			from(components.java)
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
+		}
+	}
+}
