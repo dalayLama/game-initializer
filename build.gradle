@@ -18,7 +18,7 @@ idea {
     }
 }
 
-group = 'com.playhub.gameinitializer'
+group = 'com.playhub.game.initializer'
 version = '0.0.1-SNAPSHOT'
 
 ext {
@@ -60,8 +60,16 @@ subprojects {
         mavenCentral()
         mavenLocal()
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/dalayLama/game-initializer")
+            name = "Test-Utils"
+            url = uri("https://maven.pkg.github.com/dalayLama/test-utils")
+            credentials {
+                username = project.findProperty("gpr.user")
+                password = project.findProperty("gpr.key")
+            }
+        }
+        maven {
+            name = "Playhub-Common-Libs"
+            url = uri("https://maven.pkg.github.com/dalayLama/playhub-common-libs")
             credentials {
                 username = project.findProperty("gpr.user")
                 password = project.findProperty("gpr.key")
@@ -103,8 +111,8 @@ subprojects {
         options.compilerArgs << "-Amapstruct.disableBuilders=true"
     }
 
-}
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
 
-tasks.named('test') {
-    useJUnitPlatform()
 }
