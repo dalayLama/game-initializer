@@ -1,6 +1,6 @@
 package com.playhub.gameinitializer.service;
 
-import com.playhub.restdto.response.GameInfo;
+import com.playhub.gameinitializer.model.GameInfo;
 
 import java.util.List;
 

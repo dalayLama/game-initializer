@@ -24,10 +24,11 @@ version = '0.0.1-SNAPSHOT'
 ext {
     bomVersions = [
             springBoot: "3.2.5",
-            springCloud: "2022.0.3"
+            springCloud: "2022.0.3",
+            mongock: "5.4.4"
     ]
     libVersions = [
-        mapstruct: "1.5.5.Final",
+        mapstruct: "1.6.0",
         playhubSecurityStarter: "0.0.1-SNAPSHOT",
         jimBeamCommonUtils: "0.0.1-SNAPSHOT",
         jimBeamJpaUtils: "0.0.1-SNAPSHOT",
@@ -35,7 +36,8 @@ ext {
         jimBeamKafkaContainer: "0.0.1-SNAPSHOT",
         jimBemSpringLiquibase: "0.0.1-SNAPSHOT",
         playhubWebErrorManagementStarter: "0.0.1-SNAPSHOT",
-        springDocOpenApi: "2.0.2"
+        springDocOpenApi: "2.0.2",
+        mongock: "5.4.4"
     ]
 }
 
@@ -49,6 +51,15 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+}
+
+bootJar {
+    mainClass.set("module service.com.playhub.gameinitializer.Application")
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
 }
 
 subprojects {
@@ -82,6 +93,7 @@ subprojects {
             imports {
                 mavenBom "org.springframework.boot:spring-boot-dependencies:$bomVersions.springBoot"
                 mavenBom "org.springframework.cloud:spring-cloud-dependencies:$bomVersions.springCloud"
+                mavenBom "io.mongock:mongock-bom:$bomVersions.mongock"
             }
             dependency "org.mapstruct:mapstruct:$libVersions.mapstruct"
             dependency "org.mapstruct:mapstruct-processor:$libVersions.mapstruct"
@@ -93,6 +105,8 @@ subprojects {
             dependency "com.jimbeam:kafka-testcontainer:$libVersions.jimBeamKafkaContainer"
             dependency "com.jimbeam:spring-liquibase:$libVersions.jimBemSpringLiquibase"
             dependency "org.springdoc:springdoc-openapi-starter-webmvc-ui:$libVersions.springDocOpenApi"
+            dependency "io.mongock:mongock-springboot-v3:$libVersions.mongock"
+            dependency "io.mongock:mongodb-springdata-v4-driver:$libVersions.mongock"
         }
     }
 
