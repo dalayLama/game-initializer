@@ -1,6 +1,6 @@
 package com.playhub.restdto.response;
 
-public enum FieldType {
+public enum FieldTypeDto {
     STRING,
     INTEGER,
     BOOLEAN,

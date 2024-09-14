@@ -1,9 +1,9 @@
 package com.playhub.gameinitializer.changelogs;
 
 import com.playhub.gameinitializer.domain.FieldDetailsDocument;
-import com.playhub.gameinitializer.domain.FieldTypeDocument;
 import com.playhub.gameinitializer.domain.GameInfoDocument;
 import com.playhub.gameinitializer.domain.ValidationRulesDocument;
+import com.playhub.gameinitializer.model.FieldType;
 import com.playhub.gameinitializer.repository.GameInfoRepository;
 import io.mongock.api.annotations.ChangeUnit;
 import io.mongock.api.annotations.Execution;
@@ -35,31 +35,31 @@ public class GameInfoCreationChangelog {
         return Map.of(
             "playersCount", FieldDetailsDocument.builder()
                 .description("Требуемое кол-во игроков")
-                .fieldType(FieldTypeDocument.INTEGER)
+                .fieldType(FieldType.INTEGER)
                 .validation(ValidationRulesDocument.builder().min(2).max(4).build())
                 .required(false)
                 .defaultValue(2)
                 .build(),
             "matrixSize", FieldDetailsDocument.builder()
                 .description("Размер игровой сетки")
-                .fieldType(FieldTypeDocument.INTEGER)
+                .fieldType(FieldType.INTEGER)
                 .validation(ValidationRulesDocument.builder().min(4).max(10).build())
                 .required(false)
                 .defaultValue(4)
                 .build(),
             "rounds", FieldDetailsDocument.builder()
                 .description("Количество раундов")
-                .fieldType(FieldTypeDocument.INTEGER)
+                .fieldType(FieldType.INTEGER)
                 .validation(ValidationRulesDocument.builder().min(1).max(10).build())
                 .required(false)
                 .defaultValue(3)
                 .build(),
             "roundTime", FieldDetailsDocument.builder()
                 .description("Время длительности раунда")
-                .fieldType(FieldTypeDocument.DURATION)
+                .fieldType(FieldType.DURATION)
                 .validation(ValidationRulesDocument.builder().notEmpty(true).build())
                 .required(false)
-                .defaultValue(Duration.of(30, ChronoUnit.SECONDS))
+                .defaultValue(Duration.of(1, ChronoUnit.MINUTES))
                 .build()
         );
     }
