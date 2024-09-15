@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: game-initializer
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database:
+      username:
+      password:
+
+mongock:
+  migration-scan-package: com.playhub.gameinitializer.changelogs
+  enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,env,info
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  java:
+    enabled: true
+  build:
+    enabled: true
+  env:
+    enabled: true

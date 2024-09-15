@@ -11,7 +11,7 @@ dependencies {
 publishing {
 	repositories {
 		maven {
-			name = "GitHubPackages"
+			name = "Game-Initializer"
 			url = uri("https://maven.pkg.github.com/dalayLama/game-initializer")
 			credentials {
 				username = project.findProperty("gpr.user")

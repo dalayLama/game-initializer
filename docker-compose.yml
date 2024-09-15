@@ -1,0 +1,12 @@
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:7.0.9-ubi9
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGODB_INITDB_ROOT_USERNAME=admin
+      - MONGODB_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - type: bind
+        source: ./data
+        target: /data/db
